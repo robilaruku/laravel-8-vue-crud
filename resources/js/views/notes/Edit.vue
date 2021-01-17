@@ -33,7 +33,7 @@
                                 <div v-if="theErrors.description" class="mt-2 text-danger">{{ theErrors.description[0] }}</div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-outline-info">Update</button>
                         </form>
                     </div>
                 </div>
@@ -88,6 +88,7 @@ export default {
                     position: "top-right",
                     duration : 5000
                 });
+                this.$router.push(`/notes/table`);
             }).catch((e) => {
                 console.log(e);
             });

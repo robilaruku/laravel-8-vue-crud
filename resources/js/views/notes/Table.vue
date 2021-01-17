@@ -19,6 +19,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Button group">
                             <router-link :to="{ name: 'notes.edit', params : { noteSlug: note.slug } }" class="btn btn-info btn-sm" style="color: #fff"><i class="fa fa-edit"></i></router-link>
+                            <delete-note :endpoint="note.slug"/>
                         </div>
                     </td>
                 </tr>
@@ -28,7 +29,12 @@
 </template>
 
 <script>
+import DeleteNote from './Delete'
 export default {
+    components : {
+        DeleteNote
+    },
+
     data() {
         return {
             notes : [],

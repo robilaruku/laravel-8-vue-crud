@@ -30,7 +30,7 @@
                                 <div v-if="theErrors.description" class="mt-2 text-danger">{{ theErrors.description[0] }}</div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-outline-primary">Save</button>
                         </form>
                     </div>
                 </div>

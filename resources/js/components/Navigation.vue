@@ -22,10 +22,6 @@
                 </div>
             </li>
             </ul>
-            <form class="my-2 form-inline my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="my-2 btn btn-outline-success my-sm-0" type="submit">Search</button>
-            </form>
         </div>
       </nav>
 </template>
