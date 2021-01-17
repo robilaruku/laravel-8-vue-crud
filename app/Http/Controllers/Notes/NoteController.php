@@ -22,6 +22,8 @@ class NoteController extends Controller
 
     public function store()
     {
+        sleep(1);
+
         request()->validate([
             'subject' => 'required',
             'title' => 'required',
@@ -46,6 +48,9 @@ class NoteController extends Controller
 
     function update(Note $note)
     {
+
+        sleep(1);
+        
         request()->validate([
             'subject' => 'required',
             'title' => 'required',
