@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Subject;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $arr = [
+            'Laravel' => 'laravel',
+            'React Js' => 'react',
+            'Vue Js' => 'vue'
+        ];
+
+        foreach ($arr as $key => $value) {
+            $create = Subject::create([
+                'name' => $key,
+                'slug' => $value
+            ]);
+        }
     }
 }
