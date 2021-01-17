@@ -21,9 +21,6 @@
                     <router-link class="dropdown-item" :to="{ name : 'notes.table' }">Table of Note</router-link>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
             </ul>
             <form class="my-2 form-inline my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

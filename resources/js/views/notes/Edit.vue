@@ -7,7 +7,7 @@
                         New Note
                     </div>
                     <div class="card-body">
-                        <form action="#" method="post" @submit.prevent="store">
+                        <form action="#" method="post" @submit.prevent="update">
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input type="text" v-model="form.title" id="title"  v-bind:class="{'form-control':true, 'is-invalid' : theErrors.title}">
@@ -16,10 +16,13 @@
 
                             <div class="form-group">
                                 <label for="subject">Subject</label>
-                                <select v-model="form.subject" id="" v-bind:class="{'form-control':true, 'is-invalid' : theErrors.subject}">
-                                    <option  v-for="subject in subjects" :key="subject.id" :value="subject.id">
-                                        {{ subject.name }}
-                                    </option>
+                                <select @change="selectedSubject" id="" v-bind:class="{'form-control':true, 'is-invalid' : theErrors.subject}">
+                                    <option :value="form.subjectId" v-text="form.subject"></option>
+                                    <template v-for="subject in subjects">
+                                        <option v-if="form.subjectId !== subject.id" :key="subject.id" :value="subject.id">
+                                            {{ subject.name }}
+                                        </option>
+                                    </template>
                                 </select>
                                 <div v-if="theErrors.subject" class="mt-2 text-danger">{{ theErrors.subject[0] }}</div>
                             </div>
@@ -44,18 +47,16 @@
 export default {
     data() {
         return  {
-            form : {
-                title : '',
-                description : '',
-                subject : ''
-            },
+            form : [],
             subjects : [],
-            theErrors : []
+            theErrors : [],
+            selected : ''
         }
      },
 
      mounted() {
          this.getSubjects();
+         this.getNote();
      },
 
      methods: {
@@ -66,33 +67,30 @@ export default {
             }
         },
 
-        async store() {
+        async getNote() {
+            await axios.get(`/api/notes/${this.$route.params.noteSlug}`).then((response) => {
+                this.form = response.data.data
+            }).catch((e) => {
+                console.log(e);
+            });
+        },
 
-            try {
-                let response = await axios.post(`/api/notes/create-new-note`, this.form)
+        selectedSubject(e) {
+            this.selected = e.target.value
+        },
 
-                if (response.status == 200) {
-                    this.form.title = "",
-                    this.form.description = "",
-                    this.form.subject = "",
-                    this.theErrors = [],
-
-                    this.$toasted.show(response.data.message,  {
-                        theme: "bubble",
-                        type : "success",
-                        position: "top-right",
-                        duration : 5000
-                    });
-                }
-            } catch(e) {
-                this.$toasted.show('Something went wrong',  {
+        async update() {
+            this.form['subject'] = this.selected || this.form.subjectId;
+            await axios.patch(`/api/notes/${this.$route.params.noteSlug}/edit`, this.form).then((response) => {
+                this.$toasted.show(response.data.message,  {
                     theme: "bubble",
-                    type : "error",
+                    type : "success",
                     position: "top-right",
                     duration : 5000
                 });
-                this.theErrors = e.response.data.errors;
-            }
+            }).catch((e) => {
+                console.log(e);
+            });
         }
     }
 }

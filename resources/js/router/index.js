@@ -11,6 +11,9 @@ import TableOfNote from '../views/notes/Table';
 // show note
 import ShowTheNote from '../views/notes/Show';
 
+// edit note
+import EditNote from '../views/notes/Edit';
+
 export default {
     mode: 'history',
     linkActiveClass: 'active',
@@ -50,6 +53,12 @@ export default {
             path: '/notes/:noteSlug',
             name: 'notes.show',
             component: ShowTheNote
+        },
+
+        {
+            path: '/notes/:noteSlug/edit',
+            name: 'notes.edit',
+            component: EditNote
         },
 
     ]
